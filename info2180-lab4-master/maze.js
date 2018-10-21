@@ -3,9 +3,11 @@ var boundaryTouched = false;
 window.onload = function() {
 	
     boundaries = document.querySelectorAll(".boundary");
-    end = document.getElementById("end");
+    endIcon = document.getElementById("end");
+    startIcon = document.getElementById("start");
 
-    end.onmouseover = checkWin;
+    endIcon.onmouseover = checkWin;
+    start.onclick = restartMaze;
 
     for (var i = 0; i < boundaries.length - 1; i++) { 
 		boundaries[i].onmouseover = touchedBoundary;
@@ -24,4 +26,13 @@ function checkWin(){
     if(!boundaryTouched){
         alert("You win!");
     };
+}
+
+function restartMaze(){
+    if(boundaryTouched){
+        for (var i = 0; i < boundaries.length - 1; i++) { 
+            boundaries[i].classList.remove("youlose");
+        };
+        boundaryTouched = false;
+    }
 }
