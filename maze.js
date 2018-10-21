@@ -2,7 +2,7 @@
 
 //declare/create variables
 var boundaryTouched = false;
-var win = false;
+var win = null; //show that game hasn't started
 var boundaries;
 var endIcon;
 var startIcon;
@@ -21,10 +21,6 @@ window.onload = function() {
     endIcon.onmouseover = checkWin;
     start.onmouseover = noCheat;
     start.onclick = restartMaze;
-
-    for (var i = 0; i < boundaries.length - 1; i++) { 
-		boundaries[i].onmouseover = touchedBoundary;
-	};
 }
 
 //walls of the maze turn red when the mouse enters any one of them
@@ -40,15 +36,17 @@ function touchedBoundary(){
 
 //user reaches the end of the maze show "You Win!"
 function checkWin(){
-    if(!boundaryTouched){ //if walls are not red
-        statusText.textContent = "You Win! \nClick 'S' if you want to restart.";
-        win = true;
-    };
+    if(win != null){ //if win is null, that means game hasn't started 
+        if(!boundaryTouched){ //if walls are not red and variable win is true
+            statusText.textContent = "You Win! \nClick 'S' if you want to restart.";
+            win = true;
+        };
+    }
 }
 
 //restart maze when S icon/button is clicked
 function restartMaze(){
-    win = false;
+    win = false; //give it boolean value to show that game has started
     if(boundaryTouched){ //if walls are red
         for (var i = 0; i < boundaries.length - 1; i++) { 
             boundaries[i].classList.remove("youlose"); //remove red from walls
@@ -60,5 +58,9 @@ function restartMaze(){
 
 //when hover over S icon/button, prevent cheating but making sure that when mouse leaves maze element the walls turn red
 function noCheat(){
+    win = false;
     maze.onmouseleave = touchedBoundary;  
+    for (var i = 0; i < boundaries.length - 1; i++) { 
+		boundaries[i].onmouseover = touchedBoundary;
+	};
 }
