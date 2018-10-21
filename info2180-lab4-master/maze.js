@@ -2,14 +2,17 @@
 
 window.onload = function() {
 	
-    boundary = document.getElementById("boundary1");
+    boundaries = document.querySelectorAll(".boundary");
 
-    boundary.onmouseover = function(){
-        boundary.classList.add("youlose");
-    };
+    for (var i = 0; i < boundaries.length - 1; i++) { 
+		boundaries[i].onmouseover = touchedBoundary;
+	}
+}
 
 
-
-
+function touchedBoundary(){
+    for (var i = 0; i < boundaries.length - 1; i++) { 
+		boundaries[i].classList.add("youlose");
+	}
 
 }
